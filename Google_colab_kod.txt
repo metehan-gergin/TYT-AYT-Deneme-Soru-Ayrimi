@@ -1,0 +1,91 @@
+print("Eksik kütüphane yükleniyor...")
+!pip install ultralytics -q
+
+# AYARLAR
+# ==========================================
+ZIP_DOSYA_ADI = "TEMIZ_SET.zip" 
+# ==========================================
+
+import os
+import shutil
+from google.colab import drive
+from ultralytics import YOLO
+import zipfile
+import glob
+
+# 3. Google Drive Bağlantısı
+print("Google Drive bağlanıyor...")
+drive.mount('/content/drive')
+
+# 4. Hazırlık ve Temizlik
+print("Çalışma alanı hazırlanıyor...")
+base_dir = "/content/dataset"
+if os.path.exists(base_dir): shutil.rmtree(base_dir)
+os.makedirs(f"{base_dir}/images/train", exist_ok=True)
+os.makedirs(f"{base_dir}/images/val", exist_ok=True)
+os.makedirs(f"{base_dir}/labels/train", exist_ok=True)
+os.makedirs(f"{base_dir}/labels/val", exist_ok=True)
+
+# 5. Zip Dosyasını Aç
+zip_path = f"/content/drive/MyDrive/{ZIP_DOSYA_ADI}"
+extract_path = "/content/temp_extract"
+print(f"Zip açılıyor: {ZIP_DOSYA_ADI}")
+
+if not os.path.exists(zip_path):
+    print("❌ HATA: Zip dosyası Drive'da bulunamadı! Dosya adını kontrol et.")
+else:
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_path)
+
+    # 6. Dosyaları Yerleştir
+    print("Dosyalar yerleştiriliyor...")
+    resimler = []
+    for root, dirs, files in os.walk(extract_path):
+        for file in files:
+            if file.lower().endswith(('.jpg', '.png', '.jpeg')):
+                resimler.append(os.path.join(root, file))
+
+    for img_path in resimler:
+        dosya_adi = os.path.basename(img_path)
+        txt_adi = os.path.splitext(dosya_adi)[0] + ".txt"
+        txt_path = os.path.join(os.path.dirname(img_path), txt_adi)
+
+        if os.path.exists(txt_path):
+            # TRAIN'e kopyala
+            shutil.copy(img_path, f"{base_dir}/images/train/{dosya_adi}")
+            shutil.copy(txt_path, f"{base_dir}/labels/train/{txt_adi}")
+            
+            # VAL'e kopyala
+            shutil.copy(img_path, f"{base_dir}/images/val/{dosya_adi}")
+            shutil.copy(txt_path, f"{base_dir}/labels/val/{txt_adi}")
+
+    # 7. Config Oluştur
+    yaml_content = f"""
+    path: {base_dir}
+    train: images/train
+    val: images/val
+    names:
+      0: soru
+    """
+    with open(f"{base_dir}/data.yaml", "w") as f:
+        f.write(yaml_content)
+
+    # 8. EĞİTİMİ BAŞLAT (Epoch 100)
+    print("\n🚀 EĞİTİM BAŞLIYOR... (Bu sefer kesin olacak)")
+    model = YOLO("yolov8n.pt") 
+    model.train(data=f"{base_dir}/data.yaml", epochs=150, imgsz=960, batch=4)
+
+    # 9. Kaydet
+    print("\n✅ EĞİTİM BİTTİ! Sonuç kaydediliyor...")
+    hedef_klasor = "/content/drive/MyDrive/YOLO_SONUC_TEMIZ"
+    if not os.path.exists(hedef_klasor):
+        os.makedirs(hedef_klasor)
+    
+    import glob
+    runs = sorted(glob.glob("/content/runs/detect/train*"))
+    if runs:
+        last_run = runs[-1]
+        shutil.copy(f"{last_run}/weights/best.pt", f"{hedef_klasor}/best.pt")
+        print(f"🎉 ZAFER! Yeni 'best.pt' dosyan Drive'da 'YOLO_SONUC_TEMIZ' klasöründe!")
+    else:
+        print("Hata: Eğitim çıktısı bulunamadı.")
