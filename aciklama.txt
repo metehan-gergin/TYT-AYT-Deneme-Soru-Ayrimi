@@ -12,8 +12,9 @@ Sonra bütün PDFlerin görsellerinin oluşturulmasından sonra `birlestir.py` k
 Daha sonra labelImg programını açarak buradan Open Dir kısmından yolumuzu birleştirdiğimiz klasör yolu olarak belirliyoruz. (ve kaydetme butonu olarak "PascalVOC" yerine "YOLO" olarak seçiyoruz) burada daha sonra veri seti oluşturmak için soruları w ile kesip d ile kaydediyoruz her sayfa sonunda.('soru' etiketinde kaydedilebilir)(kaydettiğimiz yer direkt birleştirdiğimiz JPG klasörlerinin yolu olmalı)  
 
 Veri setlerini tamamladıktan sonra bütün PDF'ten JPG'ye dönmüş resimlerin olduğu klasörde bütün resimler olacağından dolayı(yani bazı JPG dosyalarını veri olarak kullanmadığımızdan onları ayırmak için) o klasörün içindeki `temizlik.py` kodunu çalıştırıyoruz bu sayede TEMIZ_SET adında bir klasör oluşturup bunun içine sadece verileri olan resimleri ve verileri atıyor içine.
-Bu TEMIZ_SET klasörünü zip dosyasına dönüştürüp Google drive'a yüklüyoruz daha sonra Google collabte `Google_colab_kod.txt` içindeki kodu çalıştırıyoruz. Eğitilmiş yapay zeka hazır best.py dosyasının yanında `kirpma.py` dosyasını çalıştırıyoruz. "PDF_GIRIS" dosyası içindeki PDFler veri setine göre kırpılıyor.
+Bu TEMIZ_SET klasörünü zip dosyasına dönüştürüp Google drive'a yüklüyoruz daha sonra Google collabte `Google_colab_kod.txt` içindeki kodu çalıştırıyoruz. Eğitilmiş yapay zeka hazır `best.pt` dosyasının yanında `kirpma.py` dosyasını çalıştırıyoruz. "PDF_GIRIS" dosyası içindeki PDFler veri setine göre kırpılıyor ve "KESILEN_SORULAR" dosyasında ayrı ayrı klasörler şeklinde kaydediliyor.
 
 
 İndirilmesi gereken kütüphaneleri `requirements.txt` kısmında belirttim. 	
+
 
