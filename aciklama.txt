@@ -2,16 +2,17 @@ https://github.com/HumanSignal/labelImg/releases/tag/v1.8.1
 
 Buradan labelImg programı indirilmeli.
 
-YOLO modelleri görsel veri seti için PDF sayfalarını yüksek çözünürlüklü görsellere çevirmek için `veri_hazirla.py` aracı kullanılır.
+YOLO modelleri görsel veri seti için PDF sayfalarını yüksek çözünürlüklü görsellere çevirmek için `veri_hazirla.py` aracı kullanılır. ---->
 Görselleri oluşturmak için kodun PDF_DOSYASI = kısmı PDF adıyla değiştirilmeli
 CIKTI_KLASORU = kısmında ise 5 6 7 diye numaralandırarak görseller üst üste gelmesin diye klasör adlarını farklı yapmamız lazım.
 POPPLER_BIN_YOLU = kısmı için (https://github.com/oschwartz10612/poppler-windows/releases/ buradan indirilebilir) yolunu r"C:\Users\Metehandrov\OneDrive\1240810111111-Masaüstü\Masaüstü\poppler-25.12.0\Library\bin" bu tarz değiştirmemiz lazım bin dosyasına kadar nereye indirilmişse.
 
 Sonra bütün PDFlerin görsellerinin oluşturulmasından sonra `birlestir.py` kullanarak tek bir dosya halinde topluyoruz hepsini.(KLASORLER = kısmında bütün pdf adlarını koymamız lazım)
 
-Daha sonra labelImg programını açarak buradan Open Dir kısmından yolumuzu birleştirdiğimiz klasör yolu olarak belirliyoruz. (ve kaydetme butonu olarak "PascalVOC" yerine "YOLO" olarak seçiyoruz) burada daha sonra veri seti oluşturmak için soruları w ile kesip d ile kaydediyoruz.(kaydettiğimiz yer direkt birleştirdiğimiz JPG klasörlerinin yolu olmalı)  
+Daha sonra labelImg programını açarak buradan Open Dir kısmından yolumuzu birleştirdiğimiz klasör yolu olarak belirliyoruz. (ve kaydetme butonu olarak "PascalVOC" yerine "YOLO" olarak seçiyoruz) burada daha sonra veri seti oluşturmak için soruları w ile kesip d ile kaydediyoruz her sayfa sonunda.('soru' etiketinde kaydedilebilir)(kaydettiğimiz yer direkt birleştirdiğimiz JPG klasörlerinin yolu olmalı)  
 
-Veri setlerini tamamladıktan sonra bütün PDF'ten JPG'ye dönmüş resimlerin olduğu klasörde bütün resimler olacağından dolayı(yani bazı JPG dosyalarını veri olarak kullanmadığımızdan onları ayırmak için o klasörün içindeki `temizlik.py` kodunu çalıştırıyoruz bu sayede TEMIZ_SET adında bir klasör oluşturup bunun içine sadece verileri olan resimleri ve verileri atıyor içine.
-Bu TEMIZ_SET klasörünü zip dosyasına dönüştürüp Google drive'a yüklüyoruz daha sonra Google collabte `Google_colab_kod.txt` içindeki kodu çalıştırıyoruz. Eğitilmiş yapay zeka hazır best.py dosyasının yanında `kirpma.py` dosyasını çalıştırıyoruz. "PDF_GIRIS" dosyası içindeki PDFler veri setine göre kırpılıyor. Şuan hali hazırda kullandığım veri setleri TEMIZ_SET klasörünün içinde.
+Veri setlerini tamamladıktan sonra bütün PDF'ten JPG'ye dönmüş resimlerin olduğu klasörde bütün resimler olacağından dolayı(yani bazı JPG dosyalarını veri olarak kullanmadığımızdan onları ayırmak için) o klasörün içindeki `temizlik.py` kodunu çalıştırıyoruz bu sayede TEMIZ_SET adında bir klasör oluşturup bunun içine sadece verileri olan resimleri ve verileri atıyor içine.
+Bu TEMIZ_SET klasörünü zip dosyasına dönüştürüp Google drive'a yüklüyoruz daha sonra Google collabte `Google_colab_kod.txt` içindeki kodu çalıştırıyoruz. Eğitilmiş yapay zeka hazır best.py dosyasının yanında `kirpma.py` dosyasını çalıştırıyoruz. "PDF_GIRIS" dosyası içindeki PDFler veri setine göre kırpılıyor.
+
 
 İndirilmesi gereken kütüphaneleri `requirements.txt` kısmında belirttim. 	
