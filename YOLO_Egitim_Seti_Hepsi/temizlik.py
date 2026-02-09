@@ -2,9 +2,9 @@ import os
 import shutil
 
 # --- AYARLAR ---
-KAYNAK_KLASOR = "."       # Şu anki klasör
-HEDEF_KLASOR = "TEMIZ_SET" # Oluşacak yeni klasör
-# ----------------
+KAYNAK_KLASOR = "."       
+HEDEF_KLASOR = "TEMIZ_SET" 
+# 
 
 def temizle_ve_duzelt():
     print("🧹 TEMİZLİK ROBOTU ÇALIŞIYOR (WİNDOWS MODU)...")
@@ -66,4 +66,5 @@ def temizle_ve_duzelt():
     print("Lütfen 'TEMIZ_SET' klasörünü kontrol et, sonra zip yap.")
 
 if __name__ == "__main__":
+
     temizle_ve_duzelt()
